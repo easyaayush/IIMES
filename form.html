@@ -1,0 +1,301 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myform</title>
+</head>
+<body>
+<form action = "http://localhost:5000/login" method = "post">
+         <p>Enter Name:</p>
+         <p><input type = "text" name = "nm" /></p>
+         <p><input type = "submit" value = "submit" /></p>
+      </form>
+
+</body>
+</html>-->
+<html>
+<head>
+    <style>
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);;
+
+  z-index: 2;
+  cursor: pointer;
+}
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  margin: -75px 0 0 -75px;
+  box-sizing: border-box;
+  background-clip: padding-box;
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  -webkit-mask: linear-gradient(rgba(0, 0, 0, 0.1), #000000 90%);
+  transform-origin: 50% 60%;
+  transform: perspective(200px) rotateX(66deg);
+  animation: spinner-wiggle 1.2s infinite;
+}
+.spinner:before,
+.spinner:after {
+  content: "";
+  position: absolute;
+  margin: -4px;
+  box-sizing: inherit;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  opacity: .05;
+  border: inherit;
+  border-color: transparent;
+  animation: spinner-spin 1.2s cubic-bezier(0.6, 0.2, 0, 0.8) infinite, spinner-fade 1.2s linear infinite;
+}
+
+.spinner:before {
+  border-top-color: #66e6ff;
+}
+
+.spinner:after {
+  border-top-color: #f0db75;
+  animation-delay: 0.3s;
+}
+
+@keyframes spinner-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner-fade {
+  20% {
+    opacity: .1;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: .1;
+  }
+}
+body {
+
+    background: linear-gradient(to right, #F0F8FF,  #b3f0ff);
+}
+
+.load {
+    width: 16em;
+    height: 8em;
+     position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+    margin: -75px 0 0 -75px;
+    overflow: hidden;
+}
+
+.load::before,
+.load::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+}
+
+.load::before {
+    width: inherit;
+    height: 0.2em;
+    background-color: hsla(0, 0%, 85%);
+}
+
+.load::after {
+    box-sizing: border-box;
+    width: 50%;
+    height: inherit;
+    border: 0.2em solid hsla(0, 0%, 85%);
+    border-radius: 50%;
+    left: 25%;
+}
+
+.load span {
+    position: absolute;
+    width: 5%;
+    height: 10%;
+    background-color: white;
+    border-radius: 50%;
+    bottom: 0.2em;
+    left: -5%;
+    animation: 2s linear infinite;
+    transform-origin: 50% -3em;
+    animation-name: run, rotating;
+}
+
+.load span:nth-child(2) {animation-delay: 0.075s;}
+.load span:nth-child(3) {animation-delay: 0.15s;}
+
+@keyframes run {
+    0% {left: -5%;}
+    10%, 60% {left: calc((100% - 5%) / 2);}
+    70%, 100% {left: 100%;}
+}
+
+@keyframes rotating {
+    0%, 10% {transform: rotate(0deg);}
+    60%, 100% {transform: rotate(-1turn);}
+}
+
+</style>
+
+
+    <style>
+i {
+font-family: 'Times New Roman', serif;
+  font-style: italic;
+  color: #993300;
+  font-size: 20px;
+}
+</style>
+    <script src="{{ url_for('static', filename='js/Communication.js') }}"></script>
+	</head>
+   <style type="text/css">
+.grow {
+  padding: 5px 5px 5px 5px;
+  border-radius: 10px;
+  height: 34px;
+  width: 95%;
+  margin: 5px 1% 5px 1%;
+  float: left;
+  position: relative;
+  transition: height 0.5s;
+  -webkit-transition: height 0.5s;
+  text-align: center;
+  overflow: hidden;
+}
+.grow:hover {
+  height: 145px;
+}</style>
+<style>
+table { border: none; border-collapse: collapse; }
+table td { border-left: 8px solid #FF0000; }
+
+table td:first-child { border-left: none; }
+tr:nth-child(odd) {
+    height: 50px;
+}
+tr:nth-child(even) {
+    height: 50px;
+}
+
+</style>
+<style>
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+tr.spaceUnder>td {
+  border-top:  8px solid #FF0000;
+
+}
+
+</style>
+	<body>
+    <div id="overlay" >
+  <!--<div id="loader"></div>-->
+        <!--<div class="spinner"></div>-->
+        <div class="load">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <table>
+		<tr>
+			<td colspan="1">
+				<input type="text" name="query" id="query" size="100">
+				<input type="submit" name="Search" id="btnclick" value="Search"  onclick="get()"  style="background-color:blue;color:white;">
+			&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+				<!--<script src="communicate.js"></script>-->
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Explore"  name="Exp" onclick='explore()' style="background-color:blue;color:white;font-size:13px;padding: 4px 20px;">
+
+
+
+			</td>
+		</tr>
+		<tr>
+			<td rowspan="2">
+				<!--canvas  id="myCanvas" width="700" height="700" style="border:1px solid #000000;">
+
+				</canvas!-->
+				<div id="container"></div>
+
+			</td>
+            <td>
+                <i><b>Top relevant Documents</b></i>
+				<frame>
+				<table id="listtable" border="0" height="100" width="700"  align="top" >
+
+				</table>
+				</frame>
+
+
+			</td>
+
+
+		</tr>
+        <tr class="spaceunder"><td class="hhh"><i><b>Most influential keywords</b></i><table id="listtable2" border="0" height="100" width="700"  align="right" >
+
+				</table></td></tr>
+		</table>
+		<script src="https://unpkg.com/konva@3.2.4/konva.min.js"></script>
+
+
+
+	</body>
+</html>
